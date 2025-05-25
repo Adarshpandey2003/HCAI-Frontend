@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@keyframes drift {
+  0%   { transform: translate(0,0) scale(1) rotate(0deg); }
+  50%  { transform: translate(20px,20px) scale(1.05) rotate(10deg); }
+  100% { transform: translate(0,0) scale(1) rotate(0deg); }
+}
+.blob {
+  position: absolute;
+  opacity: 0.3;
+  animation: drift 25s ease-in-out infinite;
+}
