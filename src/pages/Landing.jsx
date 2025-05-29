@@ -18,7 +18,10 @@ import {
 import checkAnimation  from '../assets/lottie/check.json';
 import shieldAnimation from '../assets/lottie/shield.json';
 import privacyAnimation from '../assets/lottie/privacy.json';
-
+import {heroHealthVid,
+  quesAns,
+  predictionIcon,
+  remediesIcon,} from '../assets/graphics';
 export default function Landing() {
   // refs + inView flags for each slide
   const [heroRef,    heroVisible]    = useInView({ threshold: 0.5 });
@@ -58,7 +61,7 @@ export default function Landing() {
       >
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          src="/assets/hero-health.mp4"
+          src={heroHealthVid}
           autoPlay
           muted
           loop
@@ -99,17 +102,17 @@ export default function Landing() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: '/assets/ques-ans.svg',
+                icon: quesAns,
                 title: '1. Answer Questions',
                 desc:  'Select the symptoms you’re experiencing.'
               },
               {
-                icon: '/assets/prediction.svg',
+                icon: predictionIcon,
                 title: '2. Get Prediction',
                 desc:  'Our model classifies possible conditions.'
               },
               {
-                icon: '/assets/remedies.svg',
+                icon: remediesIcon,
                 title: '3. View Remedies',
                 desc:  'Receive safe, doctor-approved home remedies.'
               }

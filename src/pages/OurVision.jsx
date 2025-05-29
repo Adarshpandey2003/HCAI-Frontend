@@ -1,7 +1,7 @@
 // src/pages/OurVision.jsx
 import React, { useRef } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-
+import { visionVid } from '../assets/graphics';
 export default function OurVision() {
   const missionRef = useRef(null);
 
@@ -16,7 +16,7 @@ export default function OurVision() {
       <section className="relative w-full h-screen overflow-hidden">
         {/* Video bg */}
         <video
-          src="/assets/vision-vid.mp4"
+          src={visionVid}
           className="absolute top-0 left-0 w-full h-full object-cover"
           autoPlay
           loop

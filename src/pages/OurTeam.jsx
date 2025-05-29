@@ -1,12 +1,17 @@
 // src/pages/OurTeam.jsx
 import React, { useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { adarshPic,
+  anantPic,
+  arpithPic,
+  mohitPic,
+ } from '../assets/graphics';
 
 const team = [
   {
     name: 'Adarsh Pandey, Fullstack Dev',
     tags: ['Node.js', 'React'],
-    img: '/assets/adarsh-pic.jpg',
+    img:adarshPic,
     description: [
       'Adarsh is a seasoned full‐stack developer with 6 years of experience building scalable web applications.',
       'He excels at designing RESTful APIs in Node.js and crafting dynamic UIs with React.',
@@ -17,7 +22,7 @@ const team = [
   {
     name: 'Arpith Kagalkar, Frontend Eng',
     tags: ['TypeScript', 'Tailwind'],
-    img: '/assets/arpith-pic.jpg',
+    img: arpithPic,
     description: [
       'Arpith specializes in pixel‐perfect, accessible interfaces using modern frontend stacks.',
       'He’s written dozens of custom React hooks and TypeScript utility libraries.',
@@ -28,7 +33,7 @@ const team = [
   {
     name: 'Mohit Singh, UX Designer',
     tags: ['Figma', 'Accessibility'],
-    img: '/assets/mohit-pic.jpg',
+    img: mohitPic,
     description: [
       'Mohit is our resident UX champion, crafting intuitive flows in Figma and Sketch.',
       'He conducts user interviews and accessibility audits to make products inclusive.',
@@ -39,7 +44,7 @@ const team = [
   {
     name: 'Anant Sharma, Backend Eng',
     tags: ['Python', 'Django'],
-    img: '/assets/anant-pic.jpg',
+    img: anantPic,
     description: [
       'Anant architects and maintains our core data pipelines in Python and Django.',
       'He optimized our API to handle 10× more traffic without scaling hardware.',
