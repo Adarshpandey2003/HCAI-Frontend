@@ -1,32 +1,42 @@
 // src/pages/Login.jsx
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Input from '../components/UI/Input';
-import Button from '../components/UI/Button';
-import { useAuth } from '../context/AuthContext';
-import { isEmail } from '../utils/validation';
-import Lottie from 'lottie-react';
+import React, { useState } from 'react'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
+import Input from '../components/UI/Input'
+import Button from '../components/UI/Button'
+import { useAuth } from '../context/AuthContext'
+import { isEmail } from '../utils/validation'
+import Lottie from 'lottie-react'
 
-import animationLogin from '../assets/lottie/animationLogin.json';
+import animationLogin from '../assets/lottie/animationLogin.json'
+
 export default function Login() {
-  const navigate = useNavigate();
-  const { login } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate()
+  const { user, login } = useAuth()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  // If already logged in, redirect away
+  if (user) {
+    return <Navigate to="/question-type" replace />
+  }
 
   const handleSubmit = async e => {
-    e.preventDefault();
-    setError('');
-    if (!isEmail(email)) return setError('Invalid email.');
-    if (!password) return setError('Password required.');
-    try {
-      await login(email, password);
-      navigate('/survey');
-    } catch (err) {
-      setError(err.message || 'Failed to log in');
+    e.preventDefault()
+    setError('')
+    if (!isEmail(email)) {
+      return setError('Invalid email.')
     }
-  };
+    if (!password) {
+      return setError('Password required.')
+    }
+    try {
+      await login(email, password)
+      navigate('/question-type')
+    } catch (err) {
+      setError(err.message || 'Failed to log in')
+    }
+  }
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
@@ -67,7 +77,11 @@ export default function Login() {
               placeholder="••••••••"
             />
 
-            <Button type="submit" variant="solid" className="bg-violet-300 text-white hover:bg-violet-400">
+            <Button
+              type="submit"
+              variant="solid"
+              className="bg-violet-300 text-white hover:bg-violet-400"
+            >
               Sign In
             </Button>
           </form>
@@ -90,14 +104,12 @@ export default function Login() {
 
       {/* —— RIGHT PANEL —— */}
       <div className="relative hidden md:flex items-center justify-center bg-gradient-to-br from-indigo-300 to-blue-150 overflow-hidden">
-        {/* Illustration in the center */}
         <Lottie
           animationData={animationLogin}
-          loop={true}
-          alt="Illustration"
+          loop
           className="w-3/4 h-auto object-contain z-10"
         />
       </div>
     </div>
-  );
+  )
 }

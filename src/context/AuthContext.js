@@ -1,40 +1,58 @@
-import React, { createContext, useContext, useState } from 'react';
+// src/context/AuthContext.js
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// 1) Create the context
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
-// 2) Export a hook for easy consumption
 export function useAuth() {
   return useContext(AuthContext);
 }
 
-// 3) The provider component
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  // 1) Initialize from localStorage if present
+  const [user, setUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem('hcai_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
 
-  // sign up (replace with real API calls)
-  const signup = async (email, password) => {
-    // e.g. await api.post('/signup', { email, password })
-    setUser({ email });
-    return;
-  };
+  // 2) Whenever `user` changes, write it to localStorage
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('hcai_user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('hcai_user');
+    }
+  }, [user]);
 
-  // log in (replace with real API calls)
+  // 3) Demo login (swap for real API calls)
   const login = async (email, password) => {
-    // e.g. await api.post('/login', { email, password })
-    setUser({ email });
-    return;
+    if (email === 'test@example.com' && password === 'password') {
+      const demoUser = { email: 'test@example.com', name: 'Demo User' };
+      setUser(demoUser);
+    } else {
+      throw new Error('Invalid credentials');
+    }
   };
 
-  // log out
+  const signup = async (email, password) => {
+    // stubbed for demo
+    if (email === 'test@example.com' && password === 'password') {
+      const demoUser = { email: 'test@example.com', name: 'Demo User' };
+      setUser(demoUser);
+    } else {
+      throw new Error('Cannot sign up in demo mode');
+    }
+  };
+
   const logout = () => {
     setUser(null);
   };
 
-  const value = { user, signup, login, logout };
-
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ user, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );

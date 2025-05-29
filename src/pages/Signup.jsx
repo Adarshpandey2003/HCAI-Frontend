@@ -1,6 +1,6 @@
 // src/pages/Signup.jsx
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,Navigate } from 'react-router-dom';
 import Input from '../components/UI/Input';
 import Button from '../components/UI/Button';
 import { useAuth } from '../context/AuthContext';
@@ -9,6 +9,10 @@ import Lottie from 'lottie-react';
 
 import animationLogin from '../assets/lottie/animationLogin.json';
 export default function Signup() {
+  if (useAuth().user) {
+    // If already logged in, redirect away
+    return <Navigate to="/question-type" replace />;
+  }
   const navigate = useNavigate();
   const { signup } = useAuth();
   const [email, setEmail] = useState('');
