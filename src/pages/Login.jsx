@@ -8,7 +8,10 @@ import { isEmail } from '../utils/validation'
 import Lottie from 'lottie-react'
 
 import animationLogin from '../assets/lottie/animationLogin.json'
-
+import {
+  blobBottomLeft,
+  blobTopRight,
+} from '../assets/graphics'
 export default function Login() {
   const navigate = useNavigate()
   const { user, login } = useAuth()
@@ -44,7 +47,7 @@ export default function Login() {
       <div className="relative flex flex-col justify-center bg-white p-8">
         {/* top‐right decorative blob */}
         <img
-          src="/assets/blob-top-right.svg"
+          src={blobTopRight}
           alt=""
           className="hidden md:block absolute top-0 right-0 w-40 opacity-30 -translate-y-1/2 translate-x-1/2"
         />
@@ -96,7 +99,7 @@ export default function Login() {
 
         {/* bottom‐left decorative blob */}
         <img
-          src="/assets/blob-bottom-left.svg"
+          src={blobBottomLeft}
           alt=""
           className="hidden md:block absolute bottom-20 left-0 w-56 opacity-30 translate-y-1/2 -translate-x-1/2"
         />

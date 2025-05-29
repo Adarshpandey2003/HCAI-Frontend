@@ -8,6 +8,7 @@ import { isEmail } from '../utils/validation';
 import Lottie from 'lottie-react';
 
 import animationLogin from '../assets/lottie/animationLogin.json';
+import { blobBottomLeft, blobTopRight } from '../assets/graphics';
 export default function Signup() {
   if (useAuth().user) {
     // If already logged in, redirect away
@@ -39,7 +40,7 @@ export default function Signup() {
       {/* —— LEFT PANEL —— */}
       <div className="relative flex flex-col justify-center bg-white p-8">
         <img
-          src="/assets/blob-top-right.svg"
+          src={blobTopRight}
           alt=""
           className="hidden md:block absolute top-0 right-0 w-40 opacity-30 -translate-y-1/2 translate-x-1/2"
         />
@@ -93,7 +94,7 @@ export default function Signup() {
         </div>
 
         <img
-          src="/assets/blob-bottom-left.svg"
+          src={blobBottomLeft}
           alt=""
           className="hidden md:block absolute bottom-12 left-0 w-56 opacity-30 translate-y-1/2 -translate-x-1/2"
         />
