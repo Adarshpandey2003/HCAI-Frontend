@@ -33,7 +33,8 @@ export default function OurVision() {
             Our Vision
           </h2>
           <p className="text-white text-lg md:text-xl max-w-2xl mb-8">
-            To be the leading technology partner in the region for fostering sports collaboration and facilitating the growth of the sports ecosystem.
+            We envision a world where anyone can access safe, AI-driven health guidance at their fingertips, empowering them to make informed decisions about their well-being.
+            Our platform aims to bridge the gap between symptoms and medical advice, ensuring that no one has to navigate health challenges alone.
           </p>
           <button
             onClick={scrollToMission}

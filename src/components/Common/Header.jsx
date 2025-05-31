@@ -46,7 +46,7 @@ export default function Navbar() {
               <span className="text-gray-700 text-lg">
                 Welcome,&nbsp;
                 <span className="font-medium text-violet-700">
-                  {user.name || user.email}
+                  {user.first_name}
                 </span>
               </span>
               <button

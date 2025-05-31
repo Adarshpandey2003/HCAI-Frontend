@@ -1,39 +1,52 @@
 // src/pages/Signup.jsx
-import React, { useState } from 'react';
-import { Link, useNavigate,Navigate } from 'react-router-dom';
-import Input from '../components/UI/Input';
-import Button from '../components/UI/Button';
-import { useAuth } from '../context/AuthContext';
-import { isEmail } from '../utils/validation';
-import Lottie from 'lottie-react';
+import React, { useState } from 'react'
+import { Link, useNavigate, Navigate } from 'react-router-dom'
+import Input from '../components/UI/Input'
+import Button from '../components/UI/Button'
+import { useAuth } from '../context/AuthContext'
+import { isEmail } from '../utils/validation'
+import Lottie from 'lottie-react'
 
-import animationLogin from '../assets/lottie/animationLogin.json';
-import { blobBottomLeft, blobTopRight } from '../assets/graphics';
+import animationLogin from '../assets/lottie/animationLogin.json'
+import { blobBottomLeft, blobTopRight } from '../assets/graphics'
+
 export default function Signup() {
-  if (useAuth().user) {
-    // If already logged in, redirect away
-    return <Navigate to="/question-type" replace />;
+  const { user, signup } = useAuth()
+  const navigate          = useNavigate()
+
+  // Redirect if already logged in
+  if (user) {
+    return <Navigate to="/question-type" replace />
   }
-  const navigate = useNavigate();
-  const { signup } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
-  const [error, setError] = useState('');
+
+  // New state for first & last name
+  const [firstName, setFirstName] = useState('')
+  const [lastName,  setLastName]  = useState('')
+  const [email,     setEmail]     = useState('')
+  const [password,  setPassword]  = useState('')
+  const [confirm,   setConfirm]   = useState('')
+  const [error,     setError]     = useState('')
 
   const handleSubmit = async e => {
-    e.preventDefault();
-    setError('');
-    if (!isEmail(email)) return setError('Invalid email.');
-    if (password.length < 6) return setError('Password too short.');
-    if (password !== confirm) return setError('Passwords mismatch.');
+    e.preventDefault()
+    setError('')
+
+    // Validate names
+    if (!firstName.trim())    return setError('First name is required.')
+    if (!lastName.trim())     return setError('Last name is required.')
+    if (!isEmail(email))      return setError('Invalid email.')
+    if (password.length < 6)  return setError('Password must be at least 6 characters.')
+    if (password !== confirm) return setError('Passwords do not match.')
+
     try {
-      await signup(email, password);
-      navigate('/survey');
+      // Pass only email/password to signup; 
+      // you can extend AuthContext to accept names if needed
+      await signup(email, password, firstName, lastName)
+      navigate('/question-type')
     } catch (err) {
-      setError(err.message || 'Failed to sign up');
+      setError(err.message || 'Failed to sign up')
     }
-  };
+  }
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
@@ -59,6 +72,20 @@ export default function Signup() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
+              label="First Name"
+              type="text"
+              value={firstName}
+              onChange={e => setFirstName(e.target.value)}
+              placeholder="Jane"
+            />
+            <Input
+              label="Last Name"
+              type="text"
+              value={lastName}
+              onChange={e => setLastName(e.target.value)}
+              placeholder="Doe"
+            />
+            <Input
               label="Email"
               type="email"
               value={email}
@@ -73,14 +100,18 @@ export default function Signup() {
               placeholder="••••••••"
             />
             <Input
-              label="Confirm"
+              label="Confirm Password"
               type="password"
               value={confirm}
               onChange={e => setConfirm(e.target.value)}
               placeholder="••••••••"
             />
 
-            <Button type="submit" variant="solid" className="w-full mt-4">
+            <Button
+              type="submit"
+              variant="solid"
+              className="w-full mt-4 bg-violet-300 text-white hover:bg-violet-400"
+            >
               Sign Up
             </Button>
           </form>
@@ -104,11 +135,10 @@ export default function Signup() {
       <div className="relative hidden md:flex items-center justify-center bg-gradient-to-br from-indigo-300 to-blue-150 overflow-hidden">
         <Lottie
           animationData={animationLogin}
-          loop={true}
-          alt="Illustration"
+          loop
           className="w-3/4 h-auto object-contain z-10"
         />
       </div>
     </div>
-  );
+  )
 }

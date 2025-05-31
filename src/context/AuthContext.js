@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
     }
   });
 
-  // 2) Whenever `user` changes, write it to localStorage
+  // 2) Sync with localStorage on change
   useEffect(() => {
     if (user) {
       localStorage.setItem('hcai_user', JSON.stringify(user));
@@ -27,24 +27,40 @@ export function AuthProvider({ children }) {
     }
   }, [user]);
 
-  // 3) Demo login (swap for real API calls)
-  const login = async (email, password) => {
-    if (email === 'test@example.com' && password === 'password') {
-      const demoUser = { email: 'test@example.com', name: 'Demo User' };
-      setUser(demoUser);
-    } else {
-      throw new Error('Invalid credentials');
-    }
-  };
+  //signup function
+ const signup = async (email, password, firstName, lastName) => {
+  const res = await fetch('http://localhost:5000/api/users/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password, firstName, lastName }),
+  });
 
-  const signup = async (email, password) => {
-    // stubbed for demo
-    if (email === 'test@example.com' && password === 'password') {
-      const demoUser = { email: 'test@example.com', name: 'Demo User' };
-      setUser(demoUser);
-    } else {
-      throw new Error('Cannot sign up in demo mode');
-    }
+  const contentType = res.headers.get('content-type');
+  if (!res.ok || !contentType?.includes('application/json')) {
+    const text = await res.text();
+    throw new Error('Server error:\n' + text);
+  }
+
+  const data = await res.json();
+  setUser(data.user);
+};
+
+  //login function
+  const login = async (email, password) => {
+  const res = await fetch('http://localhost:5000/api/users/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const contentType = res.headers.get('content-type');
+  if (!res.ok || !contentType?.includes('application/json')) {
+    const text = await res.text();
+    throw new Error(text || 'Login failed');
+  }
+
+  const data = await res.json();
+  setUser(data.user);
   };
 
   const logout = () => {
