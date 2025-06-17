@@ -1,4 +1,3 @@
-// src/pages/Results.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -8,7 +7,6 @@ export default function Results() {
   const state = location.state || {};
   const { questions = [], answers = [] } = state;
 
-  // If someone navigates here without completing survey, redirect to home
   useEffect(() => {
     if (!questions.length || !answers.length) {
       navigate('/', { replace: true });
@@ -20,12 +18,26 @@ export default function Results() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Only run if we actually have questions+answers
     if (questions.length && answers.length) {
       const payload = { symptoms: {} };
+
       questions.forEach((q, idx) => {
         payload.symptoms[q] = answers[idx];
       });
+
+      // ✅ Add user_id from localStorage
+      try {
+        const storedUser = JSON.parse(localStorage.getItem('hcai_user'));
+        if (storedUser?.user_id) {
+          payload.user_id = storedUser.user_id;
+        } else {
+          throw new Error('User not logged in');
+        }
+      } catch (err) {
+        setError('User session missing. Please log in again.');
+        setLoading(false);
+        return;
+      }
 
       setLoading(true);
       setError('');
@@ -42,7 +54,6 @@ export default function Results() {
           return res.json();
         })
         .then((data) => {
-          // data should be { disease: "...", remedy: "..." }
           setResponseData(data);
           setLoading(false);
         })
@@ -53,14 +64,11 @@ export default function Results() {
     }
   }, [questions, answers]);
 
-  // Helper: convert newline breaks in remedy text into <p> or <br>
   const renderRemedyText = (raw) => {
-    // Split on two newlines first to create paragraphs
     const paragraphs = raw.trim().split(/\n\s*\n/);
     return paragraphs.map((para, idx) => (
       <p key={idx} className="mb-4 text-gray-700 leading-relaxed">
         {para.split('\n').map((line, i) =>
-          // insert a <br> at each single newline
           i > 0 ? [<br key={i} />, line] : line
         )}
       </p>
