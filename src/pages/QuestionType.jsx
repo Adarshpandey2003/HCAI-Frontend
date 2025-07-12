@@ -11,14 +11,12 @@ const OPTIONS = [
     id: 'short',
     questions: 15,
     time: '≈ 3–4 minutes',
-    accuracy: '66.67%',
     featured: false,
   },
   {
     id: 'medium',
     questions: 20,
     time: '≈ 5–6 minutes',
-    accuracy: '76.19%',
     featured: true,
   },
 ]
