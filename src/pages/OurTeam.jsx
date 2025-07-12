@@ -10,7 +10,7 @@ import { adarshPic,
 const team = [
   {
     name: 'Adarsh Pandey, Fullstack Dev',
-    tags: ['Node.js', 'React'],
+    tags: ['Node.js', 'ML'],
     img:adarshPic,
     description: [
       'Adarsh is a seasoned full‐stack developer with 6 years of experience building scalable web applications.',
@@ -20,37 +20,37 @@ const team = [
     ],
   },
   {
-    name: 'Arpith Kagalkar, Frontend Eng',
-    tags: ['TypeScript', 'Tailwind'],
+    name: 'Arpith Kagalkar, Backend Eng',
+    tags: ['Python', 'PostgreSQL'],
     img: arpithPic,
     description: [
-      'Arpith specializes in pixel‐perfect, accessible interfaces using modern frontend stacks.',
-      'He’s written dozens of custom React hooks and TypeScript utility libraries.',
-      'A stickler for design system consistency, he ensures every component is robust and reusable.',
-      'When not coding, you’ll find him experimenting with UI animations or playing chess.',
+    'Arpith specializes in building scalable, secure backend systems and APIs.',
+    'He’s developed automation tools, microservices, and data pipelines using Python and SQL.',
+    'A strong advocate for clean architecture and testing, he ensures services are robust and maintainable.',
+    'When not coding, you’ll find him exploring system design challenges or playing chess.',
     ],
   },
   {
     name: 'Mohit Singh, UX Designer',
-    tags: ['Figma', 'Accessibility'],
+    tags: ['Figma', 'ML'],
     img: mohitPic,
     description: [
-      'Mohit is our resident UX champion, crafting intuitive flows in Figma and Sketch.',
+      'Mohit is our resident UX champion, crafting intuitive flows in Figma and Skwetch.',
       'He conducts user interviews and accessibility audits to make products inclusive.',
       'His wireframes and prototypes have led to 30% faster onboarding times.',
       'He’s also a coffee‐art enthusiast and volunteers teaching design in local meetups.',
     ],
   },
   {
-    name: 'Anant Sharma, Backend Eng',
-    tags: ['Python', 'Django'],
-    img: anantPic,
-    description: [
-      'Anant architects and maintains our core data pipelines in Python and Django.',
-      'He optimized our API to handle 10× more traffic without scaling hardware.',
-      'A test‐driven developer, he writes extensive unit and integration tests.',
-      'He enjoys tackling complex database migrations and fine‐tuning performance.',
-    ],
+  name: 'Arpith Kagalkar, Backend Eng',
+  tags: ['Python', 'PostgreSQL'],
+  img: arpithPic,
+  description: [
+    'Arpith specializes in building scalable, secure backend systems and APIs.',
+    'He’s developed automation tools, microservices, and data pipelines using Python and SQL.',
+    'A strong advocate for clean architecture and testing, he ensures services are robust and maintainable.',
+    'When not coding, you’ll find him exploring system design challenges or playing chess.',
+  ],
   },
 ];
 
