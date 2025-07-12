@@ -1,18 +1,19 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import MainLayout from './layouts/MainLayout'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
 
-import Landing      from './pages/Landing'
-import Login        from './pages/Login'
-import Signup       from './pages/Signup'
-import OurTeam      from './pages/OurTeam'
-import OurVision    from './pages/OurVision'
-import Home         from './pages/Home'
-import QuestionType from './pages/QuestionType'
-import SurveyPage   from './pages/Survey'
-import Results      from './pages/Results'
-
-import RequireAuth from './components/Auth/RequireAuth'
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import OurTeam from "./pages/OurTeam";
+import OurVision from "./pages/OurVision";
+import Home from "./pages/Home";
+import QuestionType from "./pages/QuestionType";
+import SurveyPage from "./pages/Survey";
+import Results from "./pages/Results";
+import HistoryPage from "./pages/HistoryPage";
+import DiseaseDetail from "./pages/DiseaseDetail";
+import RequireAuth from "./components/Auth/RequireAuth";
 
 function App() {
   return (
@@ -21,10 +22,10 @@ function App() {
         {/* everything is rendered inside MainLayout */}
         <Route element={<MainLayout />}>
           {/* — Public routes — */}
-          <Route path="/"       element={<Landing />} />
-          <Route path="/login"  element={<Login />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/team"   element={<OurTeam />} />
+          <Route path="/team" element={<OurTeam />} />
           <Route path="/vision" element={<OurVision />} />
 
           {/* — Protected routes — */}
@@ -60,13 +61,21 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route path="/history"element={
+            <RequireAuth>
+            <HistoryPage />
+          </RequireAuth>} />
+          <Route path="/disease/:id"  element={
+            <RequireAuth>
+            <DiseaseDetail />
+            </RequireAuth>} />
 
           {/* — Catch-all / 404 fallback — */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

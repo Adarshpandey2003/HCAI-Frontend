@@ -2,6 +2,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext.js'
+import { ClockIcon } from '@heroicons/react/24/outline'
 
 export default function Navbar() {
   const { user, logout } = useAuth()
@@ -39,10 +40,17 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Right side: either Login or User + Logout */}
+        {/* Right side: either Login or User + Logout + History */}
         <div className="hidden lg:flex items-center space-x-4">
           {user ? (
             <>
+              <Link
+                to="/history"
+                className="text-gray-700 hover:text-violet-600 transition"
+                aria-label="View Prediction History"
+              >
+                <ClockIcon className="h-6 w-6" />
+              </Link>
               <span className="text-gray-700 text-lg">
                 Welcome,&nbsp;
                 <span className="font-medium text-violet-700">
