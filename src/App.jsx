@@ -81,12 +81,12 @@ export default function App() {
           />
 
           <Route
-            path="/disease/:id"
-            element={
-              <RequireAuth>
-                <DiseaseDetail />
-              </RequireAuth>
-            }
+              path="/disease/:disease_id"
+              element={
+                <RequireAuth>
+                  <DiseaseDetail />
+                </RequireAuth>
+              }
           />
 
           {/* — Catch-all / 404 fallback — */}

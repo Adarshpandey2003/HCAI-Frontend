@@ -11,10 +11,10 @@ export default function DiseaseDetail() {
 
   // Optional: grab disease name from <Navigate state> if passed
   const passedName = location.state?.disease_name
-
+  console.log(disease_id)
   useEffect(() => {
     setLoading(true)
-    fetch(`http://localhost:5000/api/advice?disease_id=13`)
+    fetch(`http://localhost:5000/api/advice?disease_id=${disease_id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch advice')
         return res.json()
@@ -64,7 +64,6 @@ export default function DiseaseDetail() {
         <h1 className="text-3xl font-bold text-violet-700">
           Advice for {passedName || `Condition #${disease_id}`}
           <br />
-          {`Condition #13`}
         </h1>
 
         <div className="space-y-4 prose prose-lg text-gray-800">

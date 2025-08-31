@@ -7,6 +7,7 @@ export default function HealthChatbot() {
   const [history, setHistory] = useState([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [threadId, setThreadId] = useState(localStorage.getItem('threadId') || null)
   const scrollRef = useRef()
 
   useEffect(() => {
@@ -23,10 +24,19 @@ export default function HealthChatbot() {
     setLoading(true)
     try {
       const { data } = await axios.post('http://localhost:5000/api/chatbot', {
-        history, message: input
+        message: input,
+        threadId: threadId || null,
       })
+
+      // save threadId for future context
+      if (data.threadId && data.threadId !== threadId) {
+        setThreadId(data.threadId)
+        localStorage.setItem('threadId', data.threadId)
+      }
+
       setHistory(h => [...h, { role: 'assistant', content: data.reply }])
-    } catch {
+    } catch (err) {
+      console.error(err)
       setHistory(h => [...h, { role: 'assistant', content: '😔 Sorry, something went wrong.' }])
     } finally {
       setLoading(false)

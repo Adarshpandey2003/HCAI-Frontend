@@ -9,7 +9,7 @@ import { adarshPic,
 
 const team = [
   {
-    name: 'Adarsh Pandey, Fullstack Dev',
+    name: 'Adarsh Pandey, Fullstack Dev, Team Lead',
     tags: ['Node.js', 'ML'],
     img:adarshPic,
     description: [
